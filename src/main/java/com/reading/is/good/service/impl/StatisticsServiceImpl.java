@@ -1,59 +1,68 @@
 package com.reading.is.good.service.impl;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 
+import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.aggregation.Aggregation;
-import org.springframework.data.mongodb.core.aggregation.AggregationResults;
-import org.springframework.data.mongodb.core.aggregation.ArrayOperators;
-import org.springframework.data.mongodb.core.aggregation.ConvertOperators;
-import org.springframework.data.mongodb.core.aggregation.GroupOperation;
-import org.springframework.data.mongodb.core.aggregation.MatchOperation;
-import org.springframework.data.mongodb.core.aggregation.ProjectionOperation;
-import org.springframework.data.mongodb.core.aggregation.UnwindOperation;
-import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.reading.is.good.common.Utils;
-import com.reading.is.good.dto.Statistics;
+import com.mongodb.client.AggregateIterable;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import com.reading.is.good.service.StatisticsService;
 
 @Service
 public class StatisticsServiceImpl implements StatisticsService {
 
 	@Autowired
-	MongoTemplate mongoTemplate;
+	MongoClient mongoClient;
 
+	@Transactional
 	@Override
-	public List<Statistics> getStatistics(String email) {
-		MatchOperation match = Aggregation.match(Criteria.where("email").is(email));
-		ProjectionOperation project1 = Aggregation.project("orderDate")
-				.and(ConvertOperators.ToDate.toDate("$orderDate")).as("dateFormat").and("detail").as("detail");
-		ProjectionOperation project2 = Aggregation.project("dateFormat").andExpression("month(dateFormat)").as("month")
-				.and("detail").as("detail");
-		GroupOperation group1 = Aggregation.group("month").push("detail").as("detail").push("month").as("monthParam");
-		UnwindOperation unwind1 = Aggregation.unwind("detail");
-		UnwindOperation unwind2 = Aggregation.unwind("detail");
-		GroupOperation group2 = Aggregation.group("month").count().as("totalOrderCount").sum("detail.totalPrice").as("totalAmount")
-				.sum("detail.bookOrderCount").as("totalBookCount").push("monthParam")
-				.as("monthParam");
-		ProjectionOperation project3 = Aggregation.project("totalBookCount", "totalOrderCount", "totalAmount")
-				.and(ArrayOperators.ArrayElemAt.arrayOf("monthParam").elementAt(0)).as("monthParam");
-		ProjectionOperation project4 = Aggregation.project("totalBookCount", "totalOrderCount", "totalAmount")
-				.and(ArrayOperators.ArrayElemAt.arrayOf("monthParam").elementAt(0)).as("month");
+	public ArrayList<Document> getStatistics(String email) {
 
-		Aggregation agg = Aggregation.newAggregation(match, project1, project2, group1, unwind1, unwind2, group2,
-				project3, project4);
+		MongoDatabase database = mongoClient.getDatabase("readingisgood");
+		MongoCollection<Document> collection = database.getCollection("order");
 
-		AggregationResults<Statistics> results = mongoTemplate.aggregate(agg, "order", Statistics.class);
-		
-		results.getMappedResults().forEach(stats -> {
-			int month = Integer.parseInt(stats.getMonth());
-			stats.setMonth(Utils.convertMonthName(month));
-		});
+		AggregateIterable<Document> result = collection
+				.aggregate(
+						Arrays.asList(
+								new Document("$project",
+										new Document("month",
+												new Document("$month", new Document("$toDate", "$orderDate")))
+														.append("detail", "$detail")),
+								new Document("$group",
+										new Document("_id", new Document("month", "$month"))
+												.append("detail", new Document("$push", "$detail"))
+												.append("monthParam", new Document("$push", "$month"))),
+								new Document("$unwind", new Document("path", "$detail")),
+								new Document("$unwind", new Document("path", "$detail")),
+								new Document("$group", new Document("_id", "$_id")
+										.append("totalAmount", new Document("$sum", "$detail.totalPrice"))
+										.append("totalBookCount", new Document("$sum", "$detail.bookOrderCount"))
+										.append("totalOrderCount", new Document("$sum", 1L))
+										.append("monthParam", new Document("$push", "$monthParam"))),
+								new Document("$project",
+										new Document("monthParam",
+												new Document("$arrayElemAt", Arrays.asList("$monthParam", 0L)))
+														.append("totalAmount", "$totalAmount")
+														.append("totalBookCount", "$totalBookCount")
+														.append("totalOrderCount", "$totalOrderCount")),
+								new Document("$project",
+										new Document("month",
+												new Document("$arrayElemAt", Arrays.asList("$monthParam", 0L)))
+														.append("totalAmount", "$totalAmount")
+														.append("totalBookCount", "$totalBookCount")
+														.append("totalOrderCount", "$totalOrderCount"))));
+		ArrayList<Document> statistics = new ArrayList<>(2);
+	    for (Document document : result) {
+	    	statistics.add(document);
+	    }
 
-		return results.getMappedResults();
+	    return statistics;
 	}
 
 }

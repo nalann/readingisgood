@@ -1,9 +1,21 @@
 package com.reading.is.good.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value = "Detail of Order Api model documentation", description = "Detail of Order Model")
 public class DetailDTO {
+	
+	@ApiModelProperty(value = "Total Book Order Count")
 	private int bookOrderCount;
+	
+	@ApiModelProperty(value = "Ordered Book Name")
 	private String bookName;
+	
+	@ApiModelProperty(value = "Ordered Book Author")
 	private String author;
+	
+	@ApiModelProperty(value = "Total Price of Book Order")
 	private double totalPrice;
 
 	public int getBookOrderCount() {

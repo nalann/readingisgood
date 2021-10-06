@@ -3,7 +3,10 @@ package com.reading.is.good;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 @SpringBootApplication
+@EnableSwagger2
 public class ReadingIsGoodApplication {
 
 	public static void main(String[] args) {

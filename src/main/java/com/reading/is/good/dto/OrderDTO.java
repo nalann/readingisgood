@@ -2,12 +2,25 @@ package com.reading.is.good.dto;
 
 import java.util.ArrayList;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value = " Order Api model documentation", description = "Order Model")
 public class OrderDTO {
 
+	@ApiModelProperty(value = "Detail of Order")
 	private ArrayList<DetailDTO> detail;
+	
+	@ApiModelProperty(value = "Customer email")
 	private String email;
+	
+	@ApiModelProperty(value = "Order Creation Date")
 	private String orderDate;
+	
+	@ApiModelProperty(value = "Customer Address")
 	private String address;
+	
+	@ApiModelProperty(value = "Customer Phone")
 	private String customerPhone;
 
 	public ArrayList<DetailDTO> getDetail() {

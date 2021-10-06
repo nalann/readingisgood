@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.reading.is.good.common.Utils;
 import com.reading.is.good.dto.OrderDTO;
@@ -26,11 +27,13 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	MongoTemplate mongoTemplate;
 
+	@Transactional
 	@Override
 	public Order save(OrderDTO orderDTO) {
 		return orderRepositor.save(createOrderObj(orderDTO));
 	}
 
+	@Transactional
 	@Override
 	public List<Order> findByEmail(String email) {
 		// TODO Auto-generated method stub
@@ -61,6 +64,7 @@ public class OrderServiceImpl implements OrderService {
 		return orderRepositor.findById(id);
 	}
 
+	@Transactional
 	@Override
 	public List<Order> findByDateInterval(long startDate, long endDate) {
 		Criteria criteria = new Criteria();

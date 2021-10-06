@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.reading.is.good.dto.CustomerDTO;
 import com.reading.is.good.pojo.Customer;
@@ -17,6 +18,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	private CustomerRepository customerRepository;
 
+	@Transactional
 	@Override
 	public Customer save(CustomerDTO customerDTO) {
 		Customer customer = new Customer();
@@ -24,15 +26,18 @@ public class CustomerServiceImpl implements CustomerService {
 		customer.setEmail(customerDTO.getEmail());
 		customer.setLastName(customerDTO.getLastName());
 		customer.setName(customerDTO.getName());
+		customer.setPhone(customerDTO.getPhone());
 
 		return customerRepository.save(customer);
 	}
 
+	@Transactional
 	@Override
 	public Customer findByEmail(String email) {
 		return customerRepository.findByEmail(email);
 	}
 
+	@Transactional
 	@Override
 	public Page<Customer> findAll(Pageable pageable) {
 		return customerRepository.findAll(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize()));

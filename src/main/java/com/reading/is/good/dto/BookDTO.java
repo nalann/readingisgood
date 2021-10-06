@@ -1,12 +1,27 @@
 package com.reading.is.good.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value = "Book Api model documentation", description = "Book Model")
 public class BookDTO {
 
+	@ApiModelProperty(value = "Book Name")
 	private String bookName;
+	
+	@ApiModelProperty(value = "Author of Book")
 	private String author;
+	
+	@ApiModelProperty(value = "Publisher of Book")
 	private String publisher;
+	
+	@ApiModelProperty(value = "Stock of Book")
 	private int stock;
+	
+	@ApiModelProperty(value = "Book Category")
 	private String category;
+	
+	@ApiModelProperty(value = "Book Price")
 	private double price;
 
 	public String getBookName() {

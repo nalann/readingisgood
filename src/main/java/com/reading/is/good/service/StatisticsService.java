@@ -1,11 +1,11 @@
 package com.reading.is.good.service;
 
-import java.util.List;
+import java.util.ArrayList;
 
-import com.reading.is.good.dto.Statistics;
+import org.bson.Document;
 
 public interface StatisticsService {
 	
-	List<Statistics> getStatistics(String email);
+	ArrayList<Document> getStatistics(String email);
 
 }

@@ -1,11 +1,24 @@
 package com.reading.is.good.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value = "Customer Api model documentation", description = "Customer Model")
 public class CustomerDTO {
 
+	@ApiModelProperty(value = "Customer Name")
 	private String name;
+	
+	@ApiModelProperty(value = "Customer Last Name")
 	private String lastName;
+	
+	@ApiModelProperty(value = "Customer Email. It should be unique")
 	private String email;
+	
+	@ApiModelProperty(value = "Customer Address")
 	private String address;
+	
+	@ApiModelProperty(value = "Customer Phone")
 	private String phone;
 	
 	public String getName() {

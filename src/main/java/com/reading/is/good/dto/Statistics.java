@@ -1,9 +1,21 @@
 package com.reading.is.good.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value = " Statistics Api model documentation", description = "Statistics Model")
 public class Statistics {
+	
+	@ApiModelProperty(value = "Statistics of Total Order Count")
 	private int totalOrderCount;
+	
+	@ApiModelProperty(value = "Statistics of Total Order Amount")
 	private double totalAmount;
+	
+	@ApiModelProperty(value = "Statistics of Total Ordered Book Count")
 	private int totalBookCount;
+	
+	@ApiModelProperty(value = "Month information")
 	private String month;
 
 	public int getTotalOrderCount() {
