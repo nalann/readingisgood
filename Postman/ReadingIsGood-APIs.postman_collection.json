@@ -1,0 +1,348 @@
+{
+	"info": {
+		"_postman_id": "586d106d-a10a-4571-b171-0bc9c3ae9c59",
+		"name": "ReadingIsGood-APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Customer-1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"John\",\r\n    \"lastName\": \"Black\",\r\n    \"email\": \"John@gmail.com\",\r\n    \"address\": \"Istanbul\",\r\n    \"phone\":  \"+900001\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/customers/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customer-2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Hector\",\r\n    \"lastName\": \"Bell\",\r\n    \"email\": \"hector@gmail.com\",\r\n    \"address\": \"Istanbul\",\r\n    \"phone\":  \"+900002\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/customers/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Customer-3",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Alice\",\r\n    \"lastName\": \"Bell\",\r\n    \"email\": \"alice@gmail.com\",\r\n    \"address\": \"Istanbul\",\r\n    \"phone\":  \"+900002\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/customers/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Book-1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"bookName\": \"Robinson Crusoe\",\r\n    \"author\": \"Daniel Defoe\",\r\n    \"publisher\": \"pk\",\r\n    \"category\": \"classic\",\r\n    \"price\": 20.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/books/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"books",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Book-2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"bookName\": \"Harry Potter and the Chamber of Secrets\",\r\n    \"author\": \"J.K. Rowling\",\r\n    \"publisher\": \"Bloomsburry\",\r\n    \"category\": \"fantastic\",\r\n    \"price\": 55.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/books/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"books",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order-1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"hector@gmail.com\",\r\n    \"orderDate\": \"03-05-2021 15:10:02\",\r\n    \"address\": \"Istanbul\",\r\n    \"customerPhone\": \"+900002\",\r\n    \"detail\": [\r\n        {\r\n            \"bookOrderCount\": 2,\r\n            \"bookName\": \"Harry Potter and the Chamber of Secrets\",\r\n            \"author\": \"J.K. Rowling\",\r\n            \"totalPrice\": \"110.0\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/orders/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"orders",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order-2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"hector@gmail.com\",\r\n    \"orderDate\": \"08-07-2021 17:10:02\",\r\n    \"address\": \"Istanbul\",\r\n    \"customerPhone\": \"+900002\",\r\n    \"detail\": [\r\n        {\r\n            \"bookOrderCount\": 4,\r\n            \"bookName\": \"Robinson Crusoe\",\r\n            \"author\": \"Daniel Defoe\",\r\n            \"totalPrice\": \"110.0\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/orders/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"orders",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Customers - Pagination",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/customers/all?page=1&size=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers",
+						"all"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Order by Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/orders/get/by/id?id=615ddb12bda9d143e04036a7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"orders",
+						"get",
+						"by",
+						"id"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "615ddb12bda9d143e04036a7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Order by Date Interval",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/orders/get/date/interval?startDate=03-04-2021 21:00:22&endDate=03-10-2021 21:30:22",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"orders",
+						"get",
+						"date",
+						"interval"
+					],
+					"query": [
+						{
+							"key": "startDate",
+							"value": "03-04-2021 21:00:22"
+						},
+						{
+							"key": "endDate",
+							"value": "03-10-2021 21:30:22"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Statistics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/statistics/all?email=hector@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"statistics",
+						"all"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "hector@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Swagger",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080//v2/api-docs",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"",
+						"v2",
+						"api-docs"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
