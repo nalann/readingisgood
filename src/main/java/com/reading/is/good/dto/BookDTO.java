@@ -8,21 +8,32 @@ public class BookDTO {
 
 	@ApiModelProperty(value = "Book Name")
 	private String bookName;
-	
+
 	@ApiModelProperty(value = "Author of Book")
 	private String author;
-	
+
 	@ApiModelProperty(value = "Publisher of Book")
 	private String publisher;
-	
+
 	@ApiModelProperty(value = "Stock of Book")
 	private int stock;
-	
+
 	@ApiModelProperty(value = "Book Category")
 	private String category;
-	
+
 	@ApiModelProperty(value = "Book Price")
 	private double price;
+
+	public BookDTO() {
+	}
+
+	public BookDTO(String bookName, String author, String publisher, String category, double price) {
+		this.bookName = bookName;
+		this.author = author;
+		this.publisher = publisher;
+		this.category = category;
+		this.price = price;
+	}
 
 	public String getBookName() {
 		return bookName;
