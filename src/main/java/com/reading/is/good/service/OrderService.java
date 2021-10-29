@@ -3,13 +3,16 @@ package com.reading.is.good.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.reading.is.good.dto.OrderDTO;
 import com.reading.is.good.pojo.Order;
 
 public interface OrderService {
 	Order save(OrderDTO orderDTO);
 	
-	List<Order> findByEmail(String email);
+	Page<Order> findByEmail(String email, Pageable pageable);
 	
 	Optional<Order> findById(String id);
 	

@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -79,6 +81,12 @@ public class OrderRestController {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		 
+	}
+	
+	@GetMapping(value = "get/all/orders/by/customer")
+	@ApiOperation(value = "Getting Order information based on customer")
+	public ResponseEntity<Page<Order>> getOrderByCustomer(@RequestParam String email, Pageable pageable){
+		return new ResponseEntity<>(orderService.findByEmail(email, pageable), HttpStatus.OK);
 	}
 
 }

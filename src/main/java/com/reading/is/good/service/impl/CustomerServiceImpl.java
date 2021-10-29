@@ -21,14 +21,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Transactional
 	@Override
 	public Customer save(CustomerDTO customerDTO) {
-		Customer customer = new Customer();
-		customer.setAddress(customerDTO.getAddress());
-		customer.setEmail(customerDTO.getEmail());
-		customer.setLastName(customerDTO.getLastName());
-		customer.setName(customerDTO.getName());
-		customer.setPhone(customerDTO.getPhone());
-
-		return customerRepository.save(customer);
+		return customerRepository.save(convertCustomer(customerDTO));
 	}
 
 	@Transactional
@@ -41,6 +34,18 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public Page<Customer> findAll(Pageable pageable) {
 		return customerRepository.findAll(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize()));
+	}
+	
+	//Converting CustomerDTO object to Customer object
+	private Customer convertCustomer(CustomerDTO customerDTO) {
+		Customer customer = new Customer();
+		customer.setAddress(customerDTO.getAddress());
+		customer.setEmail(customerDTO.getEmail());
+		customer.setLastName(customerDTO.getLastName());
+		customer.setName(customerDTO.getName());
+		customer.setPhone(customerDTO.getPhone());
+		
+		return customer;
 	}
 
 }

@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -35,11 +38,11 @@ public class OrderServiceImpl implements OrderService {
 
 	@Transactional
 	@Override
-	public List<Order> findByEmail(String email) {
-		// TODO Auto-generated method stub
-		return orderRepositor.findByEmail(email);
+	public Page<Order> findByEmail(String email, Pageable pageable) {
+		return orderRepositor.findByEmail(email, PageRequest.of(pageable.getPageNumber(), pageable.getPageSize()));
 	}
 	
+	//Converting OrderDTO object to Order object
 	private Order createOrderObj(OrderDTO orderDTO) {
 		Order order = new Order();
 		order.setAddress(orderDTO.getAddress());
