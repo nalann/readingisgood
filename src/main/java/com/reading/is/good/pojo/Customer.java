@@ -14,6 +14,16 @@ public class Customer {
 	private String email;
 	private String address;
 	private String phone;
+	
+	public Customer(){}
+	
+	public Customer(String name, String lastName, String email, String address, String phone) {
+		this.name = name;
+		this.lastName = lastName;
+		this.email = email;
+		this.address = address;
+		this.phone = phone;		 
+	}
 
 	public String getName() {
 		return name;

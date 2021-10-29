@@ -21,6 +21,16 @@ public class CustomerDTO {
 	@ApiModelProperty(value = "Customer Phone")
 	private String phone;
 	
+	public CustomerDTO(){}
+	
+	public CustomerDTO(String name, String lastName, String email, String address, String phone) {
+		this.name = name;
+		this.lastName = lastName;
+		this.email = email;
+		this.address = address;
+		this.phone = phone;		 
+	}
+	
 	public String getName() {
 		return name;
 	}
