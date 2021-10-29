@@ -1,4 +1,4 @@
-package com.reading.is.good.getir;
+package com.reading.is.good.getir.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
