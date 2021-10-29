@@ -22,6 +22,16 @@ public class OrderDTO {
 	
 	@ApiModelProperty(value = "Customer Phone")
 	private String customerPhone;
+	
+	public OrderDTO() {}
+	
+	public OrderDTO(String email, ArrayList<DetailDTO> detail, String orderDate, String address, String customerPhone) {
+		this.email = email;
+		this.detail = detail;
+		this.orderDate = orderDate;
+		this.address = address;
+		this.customerPhone = customerPhone;
+	}
 
 	public ArrayList<DetailDTO> getDetail() {
 		return detail;

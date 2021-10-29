@@ -74,7 +74,7 @@ public class OrderRestController {
 		
 		List<Order> orders = orderService.findByDateInterval(startDateLong, endDateLong);
 		
-		if(orders != null) {
+		if(orders != null && !orders.isEmpty()) {
 			return new ResponseEntity<>(orders, HttpStatus.OK);
 		}
 		else {

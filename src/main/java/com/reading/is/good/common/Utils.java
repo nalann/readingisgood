@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.text.DateFormatSymbols;
 
 import com.reading.is.good.exception.DateParseException;
 
@@ -27,12 +26,4 @@ public class Utils {
 		return new SimpleDateFormat("MMM").format(calendar.getTime()).toString();
 	}
 	
-	public static String convertMonthName(int intMonth) {
-		if(intMonth < 1 || intMonth > 12) {
-			return null;
-		}
-		else {
-			return new DateFormatSymbols().getMonths()[intMonth-1];
-		}
-	}
 }

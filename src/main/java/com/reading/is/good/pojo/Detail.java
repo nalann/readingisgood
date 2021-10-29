@@ -5,6 +5,15 @@ public class Detail {
 	private String bookName;
 	private String author;
 	private double totalPrice;
+	
+	public Detail() {}
+	
+	public Detail(int bookOrderCount, String bookName, String author, double totalPrice) {
+		this.bookOrderCount = bookOrderCount;
+		this.bookName = bookName;
+		this.author = author;
+		this.totalPrice = totalPrice;
+	}
 
 	public int getBookOrderCount() {
 		return bookOrderCount;

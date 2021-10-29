@@ -17,6 +17,15 @@ public class DetailDTO {
 	
 	@ApiModelProperty(value = "Total Price of Book Order")
 	private double totalPrice;
+	
+    public DetailDTO() {}
+	
+	public DetailDTO(int bookOrderCount, String bookName, String author, double totalPrice) {
+		this.bookOrderCount = bookOrderCount;
+		this.bookName = bookName;
+		this.author = author;
+		this.totalPrice = totalPrice;
+	}
 
 	public int getBookOrderCount() {
 		return bookOrderCount;

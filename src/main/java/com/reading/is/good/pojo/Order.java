@@ -15,6 +15,16 @@ public class Order {
 	private long orderDate;
 	private String address;
 	private String customerPhone;
+	
+	public Order() {}
+	
+	public Order(String email, List<Detail> detail, long orderDate, String address, String customerPhone) {
+		this.email = email;
+		this.detail = detail;
+		this.orderDate = orderDate;
+		this.address = address;
+		this.customerPhone = customerPhone;
+	}
 
 	public String getEmail() {
 		return email;
