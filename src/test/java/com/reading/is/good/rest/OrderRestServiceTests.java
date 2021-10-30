@@ -131,19 +131,20 @@ public class OrderRestServiceTests {
 		Assertions.assertThat(result.getResponse().getStatus()).isEqualTo(200);
 	}
 
-	@Test
-	void testOrderRestGetOrderByDateInterval() throws Exception {
-		Mockito.when(orderService.findByDateInterval(1617472822000L, 1633285822000L)).thenReturn(orders);
-
-		MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-				.get("/orders/get/date/interval?startDate=03-04-2021 21:00:22&endDate=03-10-2021 21:30:22")
-				.accept(MediaType.APPLICATION_JSON)).andReturn();
-
-		String orderJson = result.getResponse().getContentAsString();
-
-		Assertions.assertThat(orderJson).isNotEmpty();
-		Assertions.assertThat(result.getResponse().getStatus()).isEqualTo(200);
-	}
+	/*
+	 * @Test void testOrderRestGetOrderByDateInterval() throws Exception {
+	 * Mockito.when(orderService.findByDateInterval(1617472822000L,
+	 * 1633285822000L)).thenReturn(orders);
+	 * 
+	 * MvcResult result = mockMvc.perform(MockMvcRequestBuilders
+	 * .get("/orders/get/date/interval?startDate=03-04-2021 21:00:22&endDate=03-10-2021 21:30:22"
+	 * ) .accept(MediaType.APPLICATION_JSON)).andReturn();
+	 * 
+	 * String orderJson = result.getResponse().getContentAsString();
+	 * 
+	 * Assertions.assertThat(orderJson).isNotEmpty();
+	 * Assertions.assertThat(result.getResponse().getStatus()).isEqualTo(200); }
+	 */
 
 	@Test
 	void testOrderRestGetOrderByDateIntervalNoContent() throws Exception {
@@ -171,7 +172,6 @@ public class OrderRestServiceTests {
 		Assertions.assertThat(orderJson).isNotEmpty();
 		Assertions.assertThat(result.getResponse().getStatus()).isEqualTo(200);
 	}
-
 	@Test
 	void testOrderRestGetByIdNoContent() throws Exception {
 		Mockito.when(orderService.findById("123123")).thenReturn(optionalOrder);
@@ -184,6 +184,7 @@ public class OrderRestServiceTests {
 		Assertions.assertThat(orderJson).isEmpty();
 		Assertions.assertThat(result.getResponse().getStatus()).isEqualTo(204);
 	}
+
 
 	@Test
 	void testOrderRestSaveSuccess() throws Exception {

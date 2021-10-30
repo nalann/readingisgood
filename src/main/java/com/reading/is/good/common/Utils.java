@@ -14,7 +14,6 @@ public class Utils {
 			Date date = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").parse(dateStr);
 			return date.getTime();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			throw new DateParseException("Date format is wrong. dd-MM-yyyy hh:mm:ss");
 		}  
 	}
