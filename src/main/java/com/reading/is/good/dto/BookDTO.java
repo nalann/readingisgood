@@ -34,6 +34,15 @@ public class BookDTO {
 		this.category = category;
 		this.price = price;
 	}
+	
+	public BookDTO(String bookName, String author, String publisher, String category, double price, int stock) {
+		this.bookName = bookName;
+		this.author = author;
+		this.publisher = publisher;
+		this.category = category;
+		this.price = price;
+		this.stock = stock;
+	}
 
 	public String getBookName() {
 		return bookName;

@@ -6,9 +6,7 @@ import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "book")
-@CompoundIndexes({
-    @CompoundIndex(name = "book_author", def = "{'bookName' : 1, 'author': 1}", unique = true)
-})
+@CompoundIndexes({ @CompoundIndex(name = "book_author", def = "{'bookName' : 1, 'author': 1}", unique = true) })
 public class Book {
 
 	@Id
@@ -19,7 +17,7 @@ public class Book {
 	private int stock;
 	private String category;
 	private double price;
-	
+
 	public Book() {
 	}
 
@@ -29,6 +27,15 @@ public class Book {
 		this.publisher = publisher;
 		this.category = category;
 		this.price = price;
+	}
+
+	public Book(String bookName, String author, String publisher, String category, double price, int stock) {
+		this.bookName = bookName;
+		this.author = author;
+		this.publisher = publisher;
+		this.category = category;
+		this.price = price;
+		this.stock = stock;
 	}
 
 	public String getBookName() {

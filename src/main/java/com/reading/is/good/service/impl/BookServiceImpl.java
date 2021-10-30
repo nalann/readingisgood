@@ -34,17 +34,12 @@ public class BookServiceImpl implements BookService {
 			existingBook.setStock(existingBook.getStock() + 1);
 			return bookRepository.save(existingBook);
 		} else {
-			Book book = new Book();
-			book.setAuthor(bookDTO.getAuthor());
-			book.setBookName(bookDTO.getBookName());
-			book.setCategory(bookDTO.getCategory());
-			book.setPrice(bookDTO.getPrice());
-			book.setPublisher(bookDTO.getPublisher());
-			book.setStock(1);
+			Book book = new Book(bookDTO.getBookName(), bookDTO.getAuthor(), bookDTO.getPublisher(),
+					bookDTO.getCategory(), bookDTO.getPrice(), bookDTO.getStock());
 			return bookRepository.save(book);
 		}
 	}
-	
+
 	@Transactional
 	@Override
 	public Book findByBookName(String bookName) {
@@ -63,10 +58,9 @@ public class BookServiceImpl implements BookService {
 			Query query = new Query(Criteria.where("bookName").is(detail.getBookName()))
 					.addCriteria(Criteria.where("stock").gte(detail.getBookOrderCount()));
 			Book book = mongoTemplate.findOne(query, Book.class);
-
 			if (book != null) {
 				Update update;
-				if(isDecrease)
+				if (isDecrease)
 					update = new Update().inc("stock", -detail.getBookOrderCount());
 				else
 					update = new Update().inc("stock", detail.getBookOrderCount());
