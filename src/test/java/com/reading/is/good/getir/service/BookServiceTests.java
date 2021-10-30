@@ -22,107 +22,84 @@ import com.reading.is.good.service.BookService;
 
 @SpringBootTest
 public class BookServiceTests {
-	
+
 	@Autowired
-    private MongoTemplate mongoTemplate;
-	
+	private MongoTemplate mongoTemplate;
+
 	@Autowired
 	private BookService bookService;
-	
+
 	@BeforeEach
 	void init() {
 		mongoTemplate.dropCollection(Book.class);
 	}
-	
+
 	@Test
-	public void testSaveOrUpdateBook() throws Exception{
-		BookDTO bookDTO = createBookDTO();
-		
+	public void testSaveOrUpdateBook() throws Exception {
+		BookDTO bookDTO = new BookDTO("Bir Idam Mahkumunun Son Gunu", "Victor Hugo", "İş Bankası", "classic", 6.0, 2);
+		;
 		bookService.saveOrUpdate(bookDTO);
-		bookService.saveOrUpdate(bookDTO);
-		
+
 		Book book = bookService.findByBookName(bookDTO.getBookName());
-		
+
 		assertEquals(2, book.getStock());
 	}
-	
+
 	@Test
-	public void testUpdateBookStockDecrease() throws Exception{
-		BookDTO bookDTO = createBookDTO();
+	public void testUpdateBookStockDecrease() throws Exception {
+		BookDTO bookDTO = new BookDTO("Bir Idam Mahkumunun Son Gunu", "Victor Hugo", "İş Bankası", "classic", 6.0, 2);
 		bookService.saveOrUpdate(bookDTO);
-		bookService.saveOrUpdate(bookDTO);
-		
+
 		OrderDTO orderDTO = createOrderDTO();
-		
+
 		bookService.updateBookStock(orderDTO, true);
-		
+
 		Book book = bookService.findByBookName(bookDTO.getBookName());
-		
+
 		assertEquals(1, book.getStock());
-		
+
 	}
-	
+
 	@Test
-	public void testUpdateBookStockIncrease() throws Exception{
-		BookDTO bookDTO = createBookDTO();
+	public void testUpdateBookStockIncrease() throws Exception {
+		BookDTO bookDTO = new BookDTO("Bir Idam Mahkumunun Son Gunu", "Victor Hugo", "İş Bankası", "classic", 6.0, 2);
 		bookService.saveOrUpdate(bookDTO);
-		bookService.saveOrUpdate(bookDTO);
-		
+
 		OrderDTO orderDTO = createOrderDTO();
-		
+
 		bookService.updateBookStock(orderDTO, false);
-		
+
 		Book book = bookService.findByBookName(bookDTO.getBookName());
-		
+
 		assertEquals(3, book.getStock());
-		
+
 	}
-	
+
 	@Test
-	public void testUpdateBookStockException() throws Exception{
+	public void testUpdateBookStockException() throws Exception {
 		OrderDTO orderDTO = createOrderDTO();
 		String expectedMessage = "Stock is not enough for: " + orderDTO.getDetail().get(0).getBookName();
 		Exception exception = assertThrows(StockCannotUpdatedException.class, () -> {
 			bookService.updateBookStock(orderDTO, false);
 		});
-		
+
 		String actualMessage = exception.getMessage();
-		
+
 		assertTrue(actualMessage.contains(expectedMessage));
-		
+
 	}
-	
+
 	private OrderDTO createOrderDTO() {
-		OrderDTO orderDTO = new OrderDTO();
-		orderDTO.setEmail("test@test.com");
-		orderDTO.setOrderDate("29-10-2021 14:02:05");
-		orderDTO.setAddress("Istanbul");
-		orderDTO.setCustomerPhone("+900002");
-		orderDTO.setDetail(new ArrayList<DetailDTO>());
-		DetailDTO detailDTO = new DetailDTO();
-		detailDTO.setAuthor("Victor Hugo");
-		detailDTO.setBookName("Bir Idam Mahkumunun Son Gunu");
-		detailDTO.setBookOrderCount(1);
-		detailDTO.setTotalPrice(6.0);
+		OrderDTO orderDTO = new OrderDTO("test@test.com", new ArrayList<DetailDTO>(), "29-10-2021 14:02:05", "Istanbul",
+				"+900002");
+		DetailDTO detailDTO = new DetailDTO(1, "Bir Idam Mahkumunun Son Gunu", "Victor Hugo", 6.0);
 		orderDTO.getDetail().add(detailDTO);
-		
+
 		return orderDTO;
 	}
-	
-	private BookDTO createBookDTO() {
-		BookDTO bookDTO = new BookDTO();
-		bookDTO.setAuthor("Victor Hugo");
-		bookDTO.setBookName("Bir Idam Mahkumunun Son Gunu");
-		bookDTO.setPublisher("İş Bankası");
-		bookDTO.setCategory("classic");
-		bookDTO.setPrice(6.0);
-		
-		return bookDTO;
-	}
-	
-	
+
 	@AfterEach
-    void tearDown() {
+	void tearDown() {
 		mongoTemplate.dropCollection(Book.class);
 	}
 }
