@@ -2,7 +2,7 @@
 
 *by Nalan Ekici*
 
-**Note** This documentation is about technologies and project structure.
+**Note** This documentation is about technologies and project structure, project build operation, and general information.
 
 **Tech Stack**
 
