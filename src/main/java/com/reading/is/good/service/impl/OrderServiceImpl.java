@@ -11,11 +11,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.reading.is.good.common.Utils;
 import com.reading.is.good.dto.OrderDTO;
+import com.reading.is.good.dto.OrderUpdateDTO;
+import com.reading.is.good.exception.StockCannotUpdatedException;
 import com.reading.is.good.pojo.Detail;
 import com.reading.is.good.pojo.Order;
 import com.reading.is.good.repository.OrderRepository;
@@ -26,7 +29,7 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	private OrderRepository orderRepositor;
-	
+
 	@Autowired
 	MongoTemplate mongoTemplate;
 
@@ -41,8 +44,8 @@ public class OrderServiceImpl implements OrderService {
 	public Page<Order> findByEmail(String email, Pageable pageable) {
 		return orderRepositor.findByEmail(email, PageRequest.of(pageable.getPageNumber(), pageable.getPageSize()));
 	}
-	
-	//Converting OrderDTO object to Order object
+
+	// Converting OrderDTO object to Order object
 	private Order createOrderObj(OrderDTO orderDTO) {
 		Order order = new Order();
 		order.setAddress(orderDTO.getAddress());
@@ -50,7 +53,8 @@ public class OrderServiceImpl implements OrderService {
 		order.setEmail(orderDTO.getEmail());
 		order.setOrderDate(Utils.convertStrToDateLong(orderDTO.getOrderDate()));
 		order.setDetail(new ArrayList<Detail>());
-		
+		order.setOrderStatus(orderDTO.getOrderStatus());
+
 		orderDTO.getDetail().stream().forEach(detail -> {
 			Detail orderDetail = new Detail();
 			orderDetail.setAuthor(detail.getAuthor());
@@ -76,5 +80,34 @@ public class OrderServiceImpl implements OrderService {
 		List<Order> orders = mongoTemplate.find(query, Order.class);
 
 		return orders;
+	}
+
+	@Transactional
+	@Override
+	public void orderStockUpdate(OrderUpdateDTO orderUpdateDTO) {
+		//This function is using for updating order details. bookOrderCount and totalPrice should be updated with new one.
+		Query query = new Query(Criteria.where("id").is(orderUpdateDTO.getOrderId()));
+		Order order = mongoTemplate.findOne(query, Order.class);
+
+		order.getDetail().forEach(detail -> {
+			if (orderUpdateDTO.getBookName().equals(detail.getBookName())
+					&& orderUpdateDTO.getAuthor().equals(detail.getAuthor())) {
+				detail.setBookOrderCount(orderUpdateDTO.getCount());
+				detail.setTotalPrice(orderUpdateDTO.getTotalPrice());
+			} else {
+				throw new StockCannotUpdatedException("Stock is not enough for: " + detail.getBookName());
+			}
+
+		});
+
+		mongoTemplate.save(order);
+	}
+
+	@Transactional
+	@Override
+	public void updateOrder(OrderUpdateDTO orderUpdate) {
+		Query query = new Query(Criteria.where("id").is(orderUpdate.getOrderId()));
+		Update update = new Update().set("orderStatus", orderUpdate.getOrderStatus());
+		mongoTemplate.updateFirst(query, update, Order.class);
 	}
 }

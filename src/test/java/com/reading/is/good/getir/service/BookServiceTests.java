@@ -91,7 +91,7 @@ public class BookServiceTests {
 
 	private OrderDTO createOrderDTO() {
 		OrderDTO orderDTO = new OrderDTO("test@test.com", new ArrayList<DetailDTO>(), "29-10-2021 14:02:05", "Istanbul",
-				"+900002");
+				"+900002", "shopping");
 		DetailDTO detailDTO = new DetailDTO(1, "Bir Idam Mahkumunun Son Gunu", "Victor Hugo", 6.0);
 		orderDTO.getDetail().add(detailDTO);
 

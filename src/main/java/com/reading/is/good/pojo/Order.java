@@ -15,15 +15,17 @@ public class Order {
 	private long orderDate;
 	private String address;
 	private String customerPhone;
+	private String orderStatus;
 	
 	public Order() {}
 	
-	public Order(String email, List<Detail> detail, long orderDate, String address, String customerPhone) {
+	public Order(String email, List<Detail> detail, long orderDate, String address, String customerPhone, String orderStatus) {
 		this.email = email;
 		this.detail = detail;
 		this.orderDate = orderDate;
 		this.address = address;
 		this.customerPhone = customerPhone;
+		this.orderStatus = orderStatus;
 	}
 
 	public String getEmail() {
@@ -68,6 +70,14 @@ public class Order {
 
 	public void setCustomerPhone(String customerPhone) {
 		this.customerPhone = customerPhone;
+	}
+
+	public String getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
 	}
 
 }

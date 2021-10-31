@@ -29,6 +29,7 @@ public class CustomerRestController {
 	@PostMapping(value = "/save")
 	@ApiOperation(value = "New Customer Addition Method")
 	public ResponseEntity<?> save(@RequestBody CustomerDTO customerDTO){
+		//the user cannot register with same email
 		if(customerService.findByEmail(customerDTO.getEmail()) != null)
 			return new ResponseEntity<>("Already Exists", HttpStatus.CONFLICT);
 		else {

@@ -56,8 +56,8 @@ public class StatisticsRestControllerTests {
 		ArrayList<Detail> details = new ArrayList<Detail>();
 		details.add(detail);
 		
-		orders = List.of(new Order("hectorgmail", details, 1620043802000L, "Istanbul", "7852"),
-				new Order("hectorgmail", details, 1620043802000L, "Istanbul", "7852"));
+		orders = List.of(new Order("hectorgmail", details, 1620043802000L, "Istanbul", "7852", "shopping"),
+				new Order("hectorgmail", details, 1620043802000L, "Istanbul", "7852", "shopping"));
 		
 		Gson gson = new Gson();
 		

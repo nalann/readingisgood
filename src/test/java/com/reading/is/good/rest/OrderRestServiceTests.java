@@ -28,10 +28,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.reading.is.good.dto.BookDTO;
 import com.reading.is.good.dto.DetailDTO;
 import com.reading.is.good.dto.OrderDTO;
-import com.reading.is.good.pojo.Book;
 import com.reading.is.good.pojo.Detail;
 import com.reading.is.good.pojo.Order;
 import com.reading.is.good.service.BookService;
@@ -66,12 +64,6 @@ public class OrderRestServiceTests {
 	private Optional<Order> optionalOrder;
 
 	private OrderDTO orderDTO;
-	
-	private OrderDTO badOrderDTO;
-	
-	private Book book;
-	
-	private BookDTO bookDTO;
 
 	@BeforeEach
 	void setUp() {
@@ -91,27 +83,17 @@ public class OrderRestServiceTests {
 		DetailDTO detailDTO = new DetailDTO(2, "Simyaci", "Paulo Coelho", 6.0);
 		ArrayList<DetailDTO> detailDTOs = new ArrayList<DetailDTO>();
 		detailDTOs.add(detailDTO);
-		
-		DetailDTO badDetailDTO = new DetailDTO(2, "Test", "Paulo Coelho", 6.0);
-		ArrayList<DetailDTO> badDetailDTOs = new ArrayList<DetailDTO>();
-		detailDTOs.add(badDetailDTO);
 
-		order = new Order("hector@gmail.com", details, 1620043802000L, "Istanbul", "7852");
+		order = new Order("hector@gmail.com", details, 1620043802000L, "Istanbul", "7852", "shopping");
 
-		orderDTO = new OrderDTO("hector@gmail.com", detailDTOs, "03-05-2021 15:10:02", "Istanbul", "7852");
-		
-		badOrderDTO = new OrderDTO("hector@gmail.com", badDetailDTOs, "25-25-2021 15:10:02", "Istanbul", "7852");
+		orderDTO = new OrderDTO("hector@gmail.com", detailDTOs, "03-05-2021 15:10:02", "Istanbul", "7852", "shopping");
 
-		orders = List.of(new Order("hector@gmail.com", details, 1620043802000L, "Istanbul", "7852"),
-				new Order("hector@gmail.com", details, 1620043802000L, "Istanbul", "7852"));
+		orders = List.of(new Order("hector@gmail.com", details, 1620043802000L, "Istanbul", "7852", "shopping"),
+				new Order("hector@gmail.com", details, 1620043802000L, "Istanbul", "7852", "shopping"));
 
 		pageOrder = new PageImpl<Order>(orders);
 
 		optionalOrder = Optional.ofNullable(order);
-		
-		book = new Book("Simyaci", "Paulo Coelho", "Can", "classic", 6.0);
-		
-		bookDTO = new BookDTO("Simyaci", "Paulo Coelho", "Can", "classic", 6.0);
 	}
 
 	@Test

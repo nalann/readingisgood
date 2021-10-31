@@ -23,7 +23,14 @@ public class StatisticsServiceImpl implements StatisticsService {
 	@Transactional
 	@Override
 	public ArrayList<Document> getStatistics(String email) {
-
+		
+		/*All statistics calculate with mongodb aggregation.
+		* 1. Project month information from order date
+		* 2. Group by month
+		* 3. unwind by detail
+		* 4. Group by month and calculate the "total amount", "total book count", "total order count"
+		* 5. Project these information to return monthly statistics information
+		*/
 		MongoDatabase database = mongoClient.getDatabase("readingisgood");
 		MongoCollection<Document> collection = database.getCollection("order");
 
