@@ -59,7 +59,7 @@ for linux [https://docs.docker.com/engine/install/](https://docs.docker.com/engi
 
 **2** You can find postman export into **"/docs/Postman"** folder
 
-**3** Client Credential is used for bearer authentication. You can find credential information into Postman export.
+**3** Client Credential is used for authentication. You can find credential information into Postman export.
 
 **4** Unit test coverage is 55.7%
 
