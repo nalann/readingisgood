@@ -11,22 +11,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Order(1)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/oauth/authorize")
-                .authenticated()
-                .and().formLogin()
-                .and().requestMatchers()
-                .antMatchers("/oauth/authorize");
-    }
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests()
+				.antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/**",
+						"/swagger-ui.html", "/webjars/**", "/swagger-ui/**")
+				.permitAll().anyRequest().authenticated();
+	}
 
-
-
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+	@Bean
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
 }
