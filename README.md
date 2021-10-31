@@ -29,3 +29,39 @@ Install mongodb or use online mongodb
 **7** The user will be able to see their own monthly statistics
 
 **8** The user will be able to use only one time to register on the system
+
+**Docker Structure**
+
+![](./docs/img/docker_structure.PNG "")
+
+**Note:** Best practice is that closing the database connection for accessing from host.
+
+**How to run the project on docker container**
+
+**1** Open command shell on the main project.
+
+**2** run **"docker compose build"** on the shell
+
+**3** run **"docker compose up"** on the shell
+
+**Note** Firstly you have to install docker on your computer. You can use below link to learn "how to install docker"
+
+for windows [https://docs.docker.com/desktop/windows/install/](https://docs.docker.com/desktop/windows/install/)
+
+for mac [https://docs.docker.com/desktop/mac/install/](https://docs.docker.com/desktop/mac/install/)
+
+for linux [https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/)
+
+
+**General Information**
+
+**1** You can use swagger to see details of requests
+
+**2** You can find postman export into **"/docs/Postman"** folder
+
+**3** Client Credential is used for bearer authentication. You can find credential information into Postman export.
+
+**4** Unit test coverage is 55.7%
+
+![](./docs/img/coverage_report.PNG "")
+
