@@ -1,0 +1,25 @@
+version: "3.7"
+services:
+  api_service:
+    build: .
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - spring_mongo_network
+    depends_on:
+      - app_db
+  app_db:
+    image: "mongo:latest"
+    restart: always
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    ports:
+      - 27017:27017
+    networks:
+      - spring_mongo_network
+
+networks:
+  spring_mongo_network:
+    driver: bridge
